@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 let app = express();
 
 const port = process.env.PORT || 8887;
-
+const path = require('path');
+app.use(express.static('./dist/frontend'));
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true })); //middleware portion for adding data
 app.use(cors());
@@ -41,8 +42,7 @@ function verifyToken(req, res, next) {//token
         req.userId = payload.subject
         next()
     }
-const path = require('path');
-app.use(express.static('./dist/frontend'));
+
 
 const login = require('./routes/login'); //login page
 app.use('/api/login', login);
