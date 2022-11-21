@@ -45,23 +45,23 @@ const path = require('path');
 app.use(express.static('./dist/frontend'));
 
 const login = require('./routes/login'); //login page
-app.use('/login', login);
-app.get('/logout', function (req, res) {
+app.use('/api/login', login);
+app.get('/api/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/login');
 });
 
 const home = require('./routes/home'); //homepage
-app.use('/', verifyToken, home);
+app.use('/api', verifyToken, home);
 
 const group = require('./routes/group'); //books and author group page
-app.use('/group', group);
+app.use('/api/group', group);
 
 const add = require('./routes/addform'); //add book and add author page
-app.use('/add',verifyToken, add);
+app.use('/api/add',verifyToken, add);
 
 const dlete = require('./routes/delete'); //add book and add author page
-app.use('/delete',verifyToken, dlete);
+app.use('/api/delete',verifyToken, dlete);
 
 app.get('/*', function(req,res){
     res.sendFile(path.join(__dirname + '/dist/frontend/index.html'));
