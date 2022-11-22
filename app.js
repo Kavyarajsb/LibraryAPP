@@ -45,23 +45,23 @@ function verifyToken(req, res, next) {//token
 
 
 const login = require('./routes/login'); //login page
-app.use('/api/login', login);
-app.get('/api/logout', function (req, res) {
+app.use('/login', login);
+app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/login');
 });
 
 const home = require('./routes/home'); //homepage
-app.use('/api', verifyToken, home);
+app.use('/', verifyToken, home);
 
 const group = require('./routes/group'); //books and author group page
-app.use('/api/group', group);
+app.use('/group', group);
 
 const add = require('./routes/addform'); //add book and add author page
-app.use('/api/add',verifyToken, add);
+app.use('/add',verifyToken, add);
 
 const dlete = require('./routes/delete'); //add book and add author page
-app.use('/api/delete',verifyToken, dlete);
+app.use('/delete',verifyToken, dlete);
 
 app.get('/*', function(req,res){
     res.sendFile(path.join(__dirname + '/dist/frontend/index.html'));
